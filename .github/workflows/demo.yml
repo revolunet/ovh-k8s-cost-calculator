@@ -17,7 +17,6 @@ jobs:
         run: |
           yarn
           yarn build
-          touch build/nojekyll
 
       - name: GH Pages deploy
         uses: Cecilapp/GitHub-Pages-deploy@3
