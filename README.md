@@ -1,2 +1,11 @@
 # ovh-k8s-cost-calculator
-Created with CodeSandbox
+
+Compute OVH kubernetes costs (non-offical).
+
+Demo : https://revolunet.github.io/ovh-k8s-cost-calculator
+
+The rules are defined in [./ovh.yaml](./ovh.yaml) with [publi.codes rules](https://publi.codes).
+
+## Dev
+
+`yarn && yarn start`

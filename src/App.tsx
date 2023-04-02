@@ -1,24 +1,20 @@
 import { ChangeEventHandler, ReactNode } from "react";
 import { Rule } from "publicodes";
-import { parse } from "yaml";
+import { stringify } from "yaml";
 import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
-
-/** @ts-ignore */
-import rules from "./ovh.yaml";
+import loader from "yaml.macro";
 
 import { usePublicodesEngine } from "./usePublicodesEngine";
 
 import "./styles.css";
 
-type IRules = Record<string, Rule>;
+type OvhRule = Rule & { meta?: any };
+type IRules = Record<string, OvhRule>;
 
-const strRules = Buffer.from(
-  rules.substring("data:application/octet-stream;base64,".length),
-  "base64"
-).toString();
+const parsedYaml = loader("./ovh.yaml");
 
-const parsedRules: IRules = parse(strRules);
+const parsedRules: IRules = parsedYaml;
 
 const sizeFmt = (size: number) => {
   if (size >= 1000) {
@@ -33,7 +29,7 @@ const defaultSituation = {
   "inputs . clusters": 2,
   "inputs . storage block": 100,
   "inputs . storage object": 100,
-  "inputs . storage object traffic": 1000
+  "inputs . storage object traffic": 1000,
 };
 
 function Range({
@@ -43,7 +39,7 @@ function Range({
   step = 1,
   defaultValue,
   displayValue,
-  onChange
+  onChange,
 }: {
   onChange: ChangeEventHandler<HTMLInputElement>;
   defaultValue: string | number;
@@ -73,7 +69,12 @@ function Calculator() {
   const { situation, evaluated, setSituationValue } = usePublicodesEngine({
     rules: parsedRules,
     rule: "markdown",
-    situation: defaultSituation
+    situation: defaultSituation,
+  });
+
+  const strRules = stringify({
+    ...parsedYaml,
+    ...situation,
   });
 
   return (
@@ -84,16 +85,13 @@ function Calculator() {
           console.log(e.currentTarget.value);
           setSituationValue("inputs . machine", e.currentTarget.value);
         }}
+        defaultValue={defaultSituation["inputs . machine"]}
       >
         {Object.keys(parsedRules)
           .filter((key) => key.startsWith("ovh . compute . "))
           .map((key) => {
             return (
-              <option
-                key={key}
-                value={key}
-                selected={key === defaultSituation["inputs . machine"]}
-              >
+              <option key={key} value={key}>
                 {parsedRules[key].description} : {parsedRules[key].meta.memory},{" "}
                 {parsedRules[key].meta.vCore} vCores,{" "}
                 {parsedRules[key].meta.storage}{" "}
@@ -161,7 +159,7 @@ function Calculator() {
           situation && sizeFmt(situation["inputs . storage object traffic"])
         }
       />
-      <label>
+      <label style={{ display: "inline-block", marginRight: 10 }}>
         <input
           type="checkbox"
           onClick={(e) =>
@@ -173,7 +171,7 @@ function Calculator() {
         />{" "}
         Support Pro HDS (+10%)
       </label>
-      <label>
+      <label style={{ display: "inline-block" }}>
         <input
           type="checkbox"
           onClick={(e) =>
@@ -192,36 +190,34 @@ function Calculator() {
           </ReactMarkdown>
         </div>
       )}
+      <Footer strRules={strRules} />
     </div>
   );
 }
+
+const Footer = ({ strRules }: { strRules: string }) => (
+  <>
+    <a href="https://www.ovhcloud.com/fr/public-cloud/prices/#568">
+      Official pricing
+    </a>
+    &nbsp;|&nbsp;
+    <a
+      target="_blank"
+      rel="noopener noreferrer"
+      href={`https://publi.codes/studio/mensuel-brut#${encodeURIComponent(
+        strRules
+      )}`}
+    >
+      Edit in publi.codes studio
+    </a>
+  </>
+);
 
 export default function App() {
   return (
     <div className="App">
       <h1>OVH k8s cost calculator</h1>
       <Calculator />
-      <a href="https://www.ovhcloud.com/fr/public-cloud/prices/#568">
-        Official pricing
-      </a>
-      &nbsp;|&nbsp;
-      <a
-        target="_blank"
-        rel="noopener noreferrer"
-        href="https://codesandbox.io/s/ovh-k8s-cost-calculator-uy1c8v?file=/src/ovh.yaml"
-      >
-        Edit in CodeSandbox
-      </a>
-      &nbsp;|&nbsp;
-      <a
-        target="_blank"
-        rel="noopener noreferrer"
-        href={`https://publi.codes/studio/mensuel-brut#${encodeURIComponent(
-          strRules
-        )}`}
-      >
-        Edit in publi.codes studio
-      </a>
     </div>
   );
 }

@@ -6,6 +6,9 @@ ovh: oui
 
 ovh . compute: oui
 
+#
+# The compute pricing extracted from OVH page
+
 ovh . compute . b2-7:
   description: General Purpose b2-7
   valeur: 0.0681
@@ -13,9 +16,20 @@ ovh . compute . b2-7:
   arrondi: 4 décimales
   meta:
     ref: b2-7
-    memory: 7Go
+    memory: 7 Go
     vCore: 2
-    storage: 50Go
+    storage: 50 Go SSD
+
+ovh . compute . b2-15:
+  description: General Purpose b2-15
+  valeur: 0.129
+  unité: €/h
+  arrondi: 4 décimales
+  meta:
+    ref: b2-15
+    memory: 15 Go
+    vCore: 4
+    storage: 100 Go SSD
 
 ovh . compute . b2-30:
   description: General Purpose b2-30
@@ -24,20 +38,174 @@ ovh . compute . b2-30:
   arrondi: 4 décimales
   meta:
     ref: b2-30
-    memory: 30Go
+    memory: 30 Go
     vCore: 8
-    storage: 200Go
+    storage: 200 Go SSD
+
+ovh . compute . b2-60:
+  description: General Purpose b2-60
+  valeur: 0.505
+  unité: €/h
+  arrondi: 4 décimales
+  meta:
+    ref: b2-60
+    memory: 60 Go
+    vCore: 16
+    storage: 400 Go SSD
+
+ovh . compute . b2-120:
+  description: General Purpose b2-120
+  valeur: 0.993
+  unité: €/h
+  arrondi: 4 décimales
+  meta:
+    ref: b2-120
+    memory: 120 Go
+    vCore: 32
+    storage: 400 Go SSD
+
+ovh . compute . c2-7:
+  description: CPU c2-7
+  valeur: 0.0978
+  unité: €/h
+  arrondi: 4 décimales
+  meta:
+    ref: c2-7
+    memory: 7 Go
+    vCore: 2
+    storage: 50 Go SSD
+
+ovh . compute . c2-15:
+  description: CPU c2-15
+  valeur: 0.19
+  unité: €/h
+  arrondi: 4 décimales
+  meta:
+    ref: c2-15
+    memory: 15 Go
+    vCore: 4
+    storage: 100 Go SSD
+
+ovh . compute . c2-30:
+  description: CPU c2-30
+  valeur: 0.383
+  unité: €/h
+  arrondi: 4 décimales
+  meta:
+    ref: c2-30
+    memory: 30 Go
+    vCore: 8
+    storage: 200 Go SSD
+
+ovh . compute . c2-60:
+  description: CPU c2-60
+  valeur: 0.749
+  unité: €/h
+  arrondi: 4 décimales
+  meta:
+    ref: c2-60
+    memory: 60 Go
+    vCore: 16
+    storage: 400 Go SSD
+
+ovh . compute . c2-120:
+  description: CPU c2-120
+  valeur: 1.48
+  unité: €/h
+  arrondi: 4 décimales
+  meta:
+    ref: c2-120
+    memory: 120 Go
+    vCore: 32
+    storage: 400 Go SSD
+
+ovh . compute . r2-15:
+  description: RAM r2-15
+  valeur: 0.0978
+  unité: €/h
+  arrondi: 4 décimales
+  meta:
+    ref: r2-15
+    memory: 15 Go
+    vCore: 2
+    storage: 50 Go SSD
+
+ovh . compute . r2-30:
+  description: RAM r2-30
+  valeur: 0.113
+  unité: €/h
+  arrondi: 4 décimales
+  meta:
+    ref: r2-30
+    memory: 30 Go
+    vCore: 2
+    storage: 50 Go SSD
+
+ovh . compute . r2-60:
+  description: RAM r2-60
+  valeur: 0.22
+  unité: €/h
+  arrondi: 4 décimales
+  meta:
+    ref: r2-60
+    memory: 60 Go
+    vCore: 4
+    storage: 100 Go SSD
+
+ovh . compute . r2-120:
+  description: RAM r2-120
+  valeur: 0.443
+  unité: €/h
+  arrondi: 4 décimales
+  meta:
+    ref: r2-120
+    memory: 120 Go
+    vCore: 8
+    storage: 200 Go SSD
+
+ovh . compute . r2-240:
+  description: RAM r2-240
+  valeur: 0.871
+  unité: €/h
+  arrondi: 4 décimales
+  meta:
+    ref: r2-240
+    memory: 240 Go
+    vCore: 16
+    storage: 400 Go SSD
+
+ovh . compute . d2-2:
+  description: Discovery d2-2
+  valeur: 0.0099
+  unité: €/h
+  arrondi: 4 décimales
+  meta:
+    ref: d2-2
+    memory: 2 Go
+    vCore: 1
+    storage: 25 Go
+
+ovh . compute . d2-4:
+  description: Discovery d2-4
+  valeur: 0.0198
+  unité: €/h
+  arrondi: 4 décimales
+  meta:
+    ref: d2-4
+    memory: 4 Go
+    vCore: 2
+    storage: 50 Go
 
 ovh . compute . d2-8:
-  description: Discovery d2-8 (ressources partagées)
-  valeur: 0.0357 
+  description: Discovery d2-8
+  valeur: 0.0357
   unité: €/h
   arrondi: 4 décimales
   meta:
     ref: d2-8
-    memory: 8Go
+    memory: 8 Go
     vCore: 4
-    storage: 50Go
+    storage: 50 Go
 
 ovh . kubernetes: oui
 
@@ -53,18 +221,18 @@ ovh . storage: oui
 
 ovh . storage . block:
   description: Block storage High speed Gen2
-  valeur: 0.086 
-  unité: €/Go/mois
+  valeur: 0.086
+  unité: €/Go
 
 ovh . storage . object low:
   description: Standard object storage - S3 API
-  valeur: 0.007 
-  unité: €/Go/mois
+  valeur: 0.007
+  unité: €/Go
 
 ovh . storage . object high:
   description: High Performance Object Storage - S3 API
-  valeur: 0.025 
-  unité: €/Go/mois
+  valeur: 0.025
+  unité: €/Go
 
 ovh . storage . object traffic:
   description: Trafic public sortant
@@ -75,7 +243,7 @@ inputs: oui
 
 inputs . machine:
   description: "Type de machine pour le compute"
-  valeur: oui
+  valeur: ovh . compute . b2-30
 
 inputs . noeuds:
   description: "Nombre de noeud par cluster Kubernetes"
@@ -99,7 +267,7 @@ inputs . storage object traffic:
   description: "Trafic public sortant"
   valeur: 0
   unité: Go
-  
+
 inputs . ugap:
   description: "Commande UGAP (-10%)"
   valeur: non
@@ -110,26 +278,25 @@ inputs . pro:
   valeur: non
   type: booléen
 
-
 total: oui
 
-total . machines: 
+total . machines:
   valeur: inputs . machine * 24 * 30 * inputs . noeuds * inputs . clusters
-  unité: € HT/mois
-total . ingress: 
+  unité: €
+total . ingress:
   valeur: ovh . kubernetes . cluster ingress  * 24 * 30 * inputs . clusters
-  unité: € HT/mois
+  unité: €
 total . block:
   valeur: ovh . storage . block * inputs . storage block
-  unité: € HT/mois
+  unité: €
 total . object:
   valeur: ovh . storage . object high * inputs . storage object
-  unité: € HT/mois
+  unité: €
 total . object traffic:
-    valeur: ovh . storage . object traffic * inputs . storage object traffic
-    unité: € HT/mois
+  valeur: ovh . storage . object traffic * inputs . storage object traffic
+  unité: €
 
-mensuel brut: 
+mensuel brut:
   somme:
     - total . machines
     - total . ingress
@@ -137,13 +304,13 @@ mensuel brut:
     - total . object
     - total . object traffic
 
-mensuel brut2: 
+mensuel brut2:
   variations:
     - si: inputs . pro
       alors: mensuel brut * 1.1
     - sinon: mensuel brut
 
-total mensuel: 
+total mensuel:
   variations:
     - si: inputs . ugap
       alors: mensuel brut2 * 0.9
