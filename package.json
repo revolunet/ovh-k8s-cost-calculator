@@ -1,6 +1,7 @@
 {
   "name": "ovh-k8s-cost-calculator",
   "version": "1.0.0",
+  "homepage": "https://revolunet.github.io/ovh-k8s-cost-calculator",
   "description": "Calculer les coûts de clusters OVH. algos faits avec publicodes",
   "keywords": [
     "publicodes",
@@ -10,17 +11,17 @@
   "dependencies": {
     "buffer": "^6.0.3",
     "publicodes": "1.0.0-beta.66",
-    "react": "18.0.0",
-    "react-dom": "18.0.0",
+    "react": "18.2.0",
+    "react-dom": "18.2.0",
     "react-github-fork-ribbon": "^0.7.1",
-    "react-markdown": "8.0.5",
+    "react-markdown": "8.0.6",
     "react-scripts": "5.0.1",
     "remark-gfm": "3.0.1",
     "yaml": "2.2.1"
   },
   "devDependencies": {
-    "@types/react": "18.0.25",
-    "@types/react-dom": "18.0.9",
+    "@types/react": "18.0.32",
+    "@types/react-dom": "18.0.11",
     "typescript": "5.0.3",
     "yaml.macro": "^0.2.0"
   },
