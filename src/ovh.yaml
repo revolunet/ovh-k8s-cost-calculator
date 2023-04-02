@@ -1,0 +1,162 @@
+meta:
+  sources:
+    - https://www.ovhcloud.com/fr/public-cloud/prices/#568
+
+ovh: oui
+
+ovh . compute: oui
+
+ovh . compute . b2-7:
+  description: General Purpose b2-7
+  valeur: 0.0681
+  unité: €/h
+  arrondi: 4 décimales
+  meta:
+    ref: b2-7
+    memory: 7Go
+    vCore: 2
+    storage: 50Go
+
+ovh . compute . b2-30:
+  description: General Purpose b2-30
+  valeur: 0.261
+  unité: €/h
+  arrondi: 4 décimales
+  meta:
+    ref: b2-30
+    memory: 30Go
+    vCore: 8
+    storage: 200Go
+
+ovh . compute . d2-8:
+  description: Discovery d2-8 (ressources partagées)
+  valeur: 0.0357 
+  unité: €/h
+  arrondi: 4 décimales
+  meta:
+    ref: d2-8
+    memory: 8Go
+    vCore: 4
+    storage: 50Go
+
+ovh . kubernetes: oui
+
+ovh . kubernetes . managed:
+  description: Le service Kubernetes est gratuit.
+  valeur: 0
+
+ovh . kubernetes . cluster ingress:
+  description: Point d'entrée pour des ingress
+  valeur: 0.0134
+
+ovh . storage: oui
+
+ovh . storage . block:
+  description: Block storage High speed Gen2
+  valeur: 0.086 
+  unité: €/Go/mois
+
+ovh . storage . object low:
+  description: Standard object storage - S3 API
+  valeur: 0.007 
+  unité: €/Go/mois
+
+ovh . storage . object high:
+  description: High Performance Object Storage - S3 API
+  valeur: 0.025 
+  unité: €/Go/mois
+
+ovh . storage . object traffic:
+  description: Trafic public sortant
+  valeur: 0.01
+  unité: €/Go
+
+inputs: oui
+
+inputs . machine:
+  description: "Type de machine pour le compute"
+  valeur: oui
+
+inputs . noeuds:
+  description: "Nombre de noeud par cluster Kubernetes"
+  valeur: 0
+
+inputs . clusters:
+  description: "Nombre de cluster Kubernetes"
+  valeur: 0
+
+inputs . storage block:
+  description: "Go de storage Block"
+  valeur: 0
+  unité: Go
+
+inputs . storage object:
+  description: "Go de storage Object"
+  valeur: 0
+  unité: Go
+
+inputs . storage object traffic:
+  description: "Trafic public sortant"
+  valeur: 0
+  unité: Go
+  
+inputs . ugap:
+  description: "Commande UGAP (-10%)"
+  valeur: non
+  type: booléen
+
+inputs . pro:
+  description: "Support PRO"
+  valeur: non
+  type: booléen
+
+
+total: oui
+
+total . machines: 
+  valeur: inputs . machine * 24 * 30 * inputs . noeuds * inputs . clusters
+  unité: € HT/mois
+total . ingress: 
+  valeur: ovh . kubernetes . cluster ingress  * 24 * 30 * inputs . clusters
+  unité: € HT/mois
+total . block:
+  valeur: ovh . storage . block * inputs . storage block
+  unité: € HT/mois
+total . object:
+  valeur: ovh . storage . object high * inputs . storage object
+  unité: € HT/mois
+total . object traffic:
+    valeur: ovh . storage . object traffic * inputs . storage object traffic
+    unité: € HT/mois
+
+mensuel brut: 
+  somme:
+    - total . machines
+    - total . ingress
+    - total . block
+    - total . object
+    - total . object traffic
+
+mensuel brut2: 
+  variations:
+    - si: inputs . pro
+      alors: mensuel brut * 1.1
+    - sinon: mensuel brut
+
+total mensuel: 
+  variations:
+    - si: inputs . ugap
+      alors: mensuel brut2 * 0.9
+    - sinon: mensuel brut2
+
+markdown:
+  texte: |
+
+    Composants | Coût mensuel € HT
+    -----------|---------------------:
+    {{ inputs . noeuds * inputs . clusters }} noeuds(s) | {{ total . machines }}
+    {{ inputs . clusters }} ingress | {{ total . ingress }}
+    {{ inputs . storage block }} storage block | {{ total . block }}
+    {{ inputs . storage object }} storage object High speed | {{ total . object }}
+    {{ inputs . storage object traffic }} storage object traffic sortant| {{ total . object traffic }}
+    **TOTAL** |  **{{ total mensuel }}**
