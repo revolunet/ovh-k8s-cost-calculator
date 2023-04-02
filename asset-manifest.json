@@ -1,13 +1,13 @@
 {
   "files": {
-    "main.css": "/static/css/main.1f9eb867.css",
-    "main.js": "/static/js/main.85e6fbed.js",
-    "index.html": "/index.html",
-    "main.1f9eb867.css.map": "/static/css/main.1f9eb867.css.map",
-    "main.85e6fbed.js.map": "/static/js/main.85e6fbed.js.map"
+    "main.css": "/ovh-k8s-cost-calculator/static/css/main.1f9eb867.css",
+    "main.js": "/ovh-k8s-cost-calculator/static/js/main.8c5d7a55.js",
+    "index.html": "/ovh-k8s-cost-calculator/index.html",
+    "main.1f9eb867.css.map": "/ovh-k8s-cost-calculator/static/css/main.1f9eb867.css.map",
+    "main.8c5d7a55.js.map": "/ovh-k8s-cost-calculator/static/js/main.8c5d7a55.js.map"
   },
   "entrypoints": [
     "static/css/main.1f9eb867.css",
-    "static/js/main.85e6fbed.js"
+    "static/js/main.8c5d7a55.js"
   ]
 }
